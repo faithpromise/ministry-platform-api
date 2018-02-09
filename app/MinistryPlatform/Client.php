@@ -58,7 +58,9 @@ class Client {
 
     public function get($endpoint, $parameters = []) {
 
-        $response = $this->client->get($endpoint, $parameters);
+        $response = $this->client->get($endpoint, [
+            'query' => $parameters,
+        ]);
         $content = $response->getBody()->getContents();
 
         return json_decode($content);
