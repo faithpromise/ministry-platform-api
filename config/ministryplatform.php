@@ -7,4 +7,6 @@ return [
     'password'            => env('MINISTRY_PLATFORM_PASSWORD'),
     'small_group_type_id' => env('MINISTRY_PLATFORM_SMALL_GROUP_TYPE_ID', 1),
 
+    'heartbeat_import_groups' => env('HEARTBEAT_IMPORT_GROUPS'),
+
 ];
