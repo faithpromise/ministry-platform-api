@@ -4,17 +4,17 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateGroupDemographicsTable extends Migration {
+class CreateLifeStagesTable extends Migration {
     /**
      * Run the migrations.
      *
      * @return void
      */
     public function up() {
-        Schema::create('group_demographics', function (Blueprint $table) {
+        Schema::create('life_stages', function (Blueprint $table) {
             $table->unsignedInteger('id');
             $table->string('name');
-            $table->text('description');
+            $table->text('description')->nullable();
             $table->timestamps();
         });
     }
@@ -25,6 +25,6 @@ class CreateGroupDemographicsTable extends Migration {
      * @return void
      */
     public function down() {
-        Schema::dropIfExists('group_demographics');
+        Schema::dropIfExists('life_stages');
     }
 }

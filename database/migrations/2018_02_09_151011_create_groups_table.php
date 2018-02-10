@@ -13,9 +13,9 @@ class CreateGroupsTable extends Migration {
     public function up() {
         Schema::create('groups', function (Blueprint $table) {
             $table->unsignedInteger('id');
-            $table->unsignedInteger('campus_id');
-            $table->unsignedInteger('category_id');
-            $table->unsignedInteger('demographic_id');
+            $table->unsignedInteger('campus_id')->nullable();
+            $table->unsignedInteger('focus_id')->nullable();
+            $table->unsignedInteger('life_stage_id')->nullable();
             $table->string('name');
             $table->text('description')->nullable();
             $table->string('day_of_week')->nullable();
@@ -29,8 +29,8 @@ class CreateGroupsTable extends Migration {
             $table->string('zip')->nullable();
             $table->string('latitude')->nullable();
             $table->string('longitude')->nullable();
-            $table->dateTime('started_at')->nullable();
-            $table->dateTime('expired_at')->nullable();
+            $table->dateTime('first_meeting_at')->nullable();
+            $table->unsignedBigInteger('batch_id')->nullable();
             $table->timestamps();
         });
     }
@@ -44,9 +44,3 @@ class CreateGroupsTable extends Migration {
         Schema::dropIfExists('groups');
     }
 }
-
-// tables/Contacts?$Filter=(Contact_ID=1 OR Contact_ID=2)&$Top=5
-// tables/Groups?$Filter=(Group_Type_ID=1 )&$Top=5&$Select=Groups.Group_Name, Primary_Contact_Table.First_Name, Primary_Contact_Table.Last_Name
-
-// tables/Groups?$Filter=(Group_Type_ID=1 )&$Top=5&$Select=Groups.Group_Name, Groups.Group_ID, Primary_Contact_Table.First_Name, Primary_Contact_Table.Last_Name, Primary_Contact_Table.User_Account
-// tables/Groups?$Filter=(Group_Type_ID=1 )&$Top=20&$Select=Groups.Group_Name, Groups.Group_ID, Primary_Contact_Table.First_Name, Primary_Contact_Table.Last_Name, Primary_Contact_Table.User_Account
