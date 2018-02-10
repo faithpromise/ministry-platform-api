@@ -1,5 +1,7 @@
 <?php
 
+// Using https://github.com/kamermans/guzzle-oauth2-subscriber
+
 namespace App\MinistryPlatform;
 
 use GuzzleHttp\Client as GuzzleClient;
