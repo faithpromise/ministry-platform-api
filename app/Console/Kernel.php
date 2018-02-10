@@ -2,6 +2,7 @@
 
 namespace App\Console;
 
+use App\Console\Commands\ImportGroups;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -12,7 +13,7 @@ class Kernel extends ConsoleKernel {
      * @var array
      */
     protected $commands = [
-        Commands\ImportGroups::class,
+        ImportGroups::class
     ];
 
     /**
@@ -22,7 +23,7 @@ class Kernel extends ConsoleKernel {
      * @return void
      */
     protected function schedule(Schedule $schedule) {
-        $schedule->command('import:groups')->twiceDaily(9, 16)->thenPing(config('ministryplatform.heartbeat_import_groups'));
+//        $schedule->command('import:groups')->twiceDaily(9, 16)->thenPing(config('ministryplatform.heartbeat_import_groups'));
     }
 
     /**
