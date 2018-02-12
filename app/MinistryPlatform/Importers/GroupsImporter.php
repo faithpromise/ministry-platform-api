@@ -31,24 +31,29 @@ class GroupsImporter extends ImporterAbstract {
         $batch_id = $now->timestamp;
 
         foreach ($data as $datum) {
+
+            // Extract the group's name
+            // Pipe "|" in the group name means "Leader's Name | Group Name"
+            $name_parts = explode('|', $datum->Group_Name);
+            $has_group_name = count($name_parts) > 1;
+
             $group = Group::findOrNew($datum->Group_ID);
             $group->id = $datum->Group_ID;
-            $group->campus_id = $datum->Congregation_ID;
-            $group->focus_id = $datum->Group_Focus_ID;
-            $group->life_stage_id = $datum->Life_Stage_ID;
-            $group->name = $datum->Group_Name;
-            $group->description = $datum->Description;
-            $group->day_of_week = $datum->Meeting_Day;
-            $group->start_time = $datum->Meeting_Time;
-            $group->frequency = $datum->Meeting_Frequency;
-            $group->contact_first_name = $datum->First_Name;
-            $group->contact_last_name = $datum->Last_Name;
-            $group->street = $datum->Address_Line_1;
-            $group->city = $datum->City;
-            $group->state = $datum->{'State/Region'};
-            $group->zip = $datum->Postal_Code;
-            $group->latitude = $datum->Latitude;
-            $group->longitude = $datum->Longitude;
+            $group->campus_id = $datum->Congregation_ID ?: null;
+            $group->focus_id = $datum->Group_Focus_ID ?: null;
+            $group->life_stage_id = $datum->Life_Stage_ID ?: null;
+            $group->name = trim($has_group_name ? $name_parts[1] : $name_parts[0]);
+            $group->subtitle = trim($has_group_name ? $name_parts[0] : null);
+            $group->description = trim($datum->Description) ?: null;
+            $group->day_of_week = trim($datum->Meeting_Day) ?: null;
+            $group->start_time = trim($datum->Meeting_Time) ?: null;
+            $group->frequency = trim($datum->Meeting_Frequency) ?: null;
+            $group->contact_first_name = trim($datum->First_Name) ?: null;
+            $group->contact_last_name = trim($datum->Last_Name) ?: null;
+            $group->street = trim($datum->Address_Line_1) ?: null;
+            $group->city = trim($datum->City) ?: null;
+            $group->state = trim($datum->{'State/Region'}) ?: null;
+            $group->zip = trim($datum->Postal_Code) ?: null;
             $group->batch_id = $batch_id;
             $group->save();
         }
