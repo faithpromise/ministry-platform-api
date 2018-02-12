@@ -17,7 +17,7 @@ class Controller extends BaseController {
         foreach ($groups as $group) {
             $data[] = [
                 'id'                 => $group->id,
-                'campus'             => $group->campus ? ['slug' => $group->campus->id, 'title' => $group->campus->name,] : null,
+                'campus'             => $group->campus ? ['slug' => $group->campus->remote_slug, 'title' => $group->campus->name,] : null,
                 'focus'              => $group->focus ? ['slug' => $group->focus->id, 'title' => $group->focus->name,] : null,
                 'life_stage'         => $group->lifeStage ? ['slug' => $group->lifeStage->id, 'title' => $group->lifeStage->name,] : null,
                 'name'               => $group->name,
