@@ -33,7 +33,7 @@ class Controller extends BaseController {
                 'zip'                => $group->zip,
                 'latitude'           => $group->latitude,
                 'longitude'          => $group->longitude,
-                'first_meeting_at'   => $group->first_meeting_at,
+                'first_meeting_at'   => $group->first_meeting_at->format('Y-m-d H:i:s'),
             ];
         }
 
