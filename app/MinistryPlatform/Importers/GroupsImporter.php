@@ -37,6 +37,9 @@ class GroupsImporter extends ImporterAbstract {
             $name_parts = explode('|', $datum->Group_Name);
             $has_group_name = count($name_parts) > 1;
 
+            $start_time_parts = explode(':', trim($datum->Meeting_Time));
+            $start_time = count($start_time_parts) !== 3 ? null : Carbon::createFromTime(intval($start_time_parts[0]), $start_time_parts[1]);
+
             $group = Group::findOrNew($datum->Group_ID);
             $group->id = $datum->Group_ID;
             $group->campus_id = $datum->Congregation_ID ?: null;
@@ -46,7 +49,7 @@ class GroupsImporter extends ImporterAbstract {
             $group->subtitle = trim($has_group_name ? $name_parts[0] : null);
             $group->description = trim($datum->Description) ?: null;
             $group->day_of_week = trim($datum->Meeting_Day) ?: null;
-            $group->start_time = trim($datum->Meeting_Time) ?: null;
+            $group->start_time = $start_time ? $start_time->format('g:i A') : null;
             $group->frequency = trim($datum->Meeting_Frequency) ?: null;
             $group->contact_first_name = trim($datum->First_Name) ?: null;
             $group->contact_last_name = trim($datum->Last_Name) ?: null;
