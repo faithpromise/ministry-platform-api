@@ -15,7 +15,7 @@ class ImportGroups extends Command {
      *
      * @var string
      */
-    protected $signature = 'import:groups';
+    protected $signature = 'groups:import';
 
     /**
      * The console command description.

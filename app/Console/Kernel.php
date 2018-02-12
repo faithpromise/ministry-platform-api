@@ -23,7 +23,7 @@ class Kernel extends ConsoleKernel {
      * @return void
      */
     protected function schedule(Schedule $schedule) {
-//        $schedule->command('import:groups')->twiceDaily(9, 16)->thenPing(config('ministryplatform.heartbeat_import_groups'));
+        $schedule->command('groups:import')->twiceDaily(9, 16)->thenPing(config('ministryplatform.heartbeat_import_groups'));
     }
 
     /**
