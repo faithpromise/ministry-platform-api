@@ -23,6 +23,7 @@ class Controller extends BaseController {
                 'name'               => $group->name,
                 'description'        => $group->description,
                 'day_of_week'        => $group->day_of_week,
+                'start_time'         => $group->start_time,
                 'frequency'          => $group->frequency,
                 'contact_first_name' => $group->contact_first_name,
                 'contact_last_name'  => $group->contact_last_name,
