@@ -45,6 +45,7 @@ class GroupsImporter extends ImporterAbstract {
             $group->campus_id = $datum->Congregation_ID ?: null;
             $group->focus_id = $datum->Group_Focus_ID ?: null;
             $group->life_stage_id = $datum->Life_Stage_ID ?: null;
+            $group->first_meeting_at = $datum->Start_Date ? Carbon::parse($datum->Start_Date, 'America/New_York') : null;
             $group->name = trim($has_group_name ? $name_parts[1] : $name_parts[0]);
             $group->subtitle = trim($has_group_name ? $name_parts[0] : null);
             $group->description = trim($datum->Description) ?: null;
