@@ -26,6 +26,8 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $zip
  * @property string $latitude
  * @property string $longitude
+ * @property integer $geocode_attempts
+ * @property Carbon $last_geocode_attempt_at
  * @property Carbon $first_meeting_at
  * @property integer $batch_id
  *
@@ -35,6 +37,8 @@ use Illuminate\Database\Eloquent\Model;
  *
  */
 class Group extends Model {
+
+    protected $dates = ['geocode_failed_at', 'first_meeting_at'];
 
     public function campus() {
         return $this->belongsTo(Campus::class);
