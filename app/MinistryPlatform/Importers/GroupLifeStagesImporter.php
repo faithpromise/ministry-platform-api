@@ -13,8 +13,8 @@ class GroupLifeStagesImporter extends ImporterAbstract {
         foreach ($data as $datum) {
             $life_stage = LifeStage::findOrNew($datum->Life_Stage_ID);
             $life_stage->id = $datum->Life_Stage_ID;
-            $life_stage->name = $datum->Life_Stage;
-            $life_stage->description = $datum->Description;
+            $life_stage->name = trim($datum->Life_Stage);
+            $life_stage->description = trim($datum->Description);
             $life_stage->save();
         }
 

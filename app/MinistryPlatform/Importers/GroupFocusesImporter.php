@@ -14,8 +14,8 @@ class GroupFocusesImporter extends ImporterAbstract {
         foreach ($data as $datum) {
             $focus = GroupFocus::findOrNew($datum->Group_Focus_ID);
             $focus->id = $datum->Group_Focus_ID;
-            $focus->name = $datum->Group_Focus;
-            $focus->description = $datum->Description;
+            $focus->name = trim($datum->Group_Focus);
+            $focus->description = trim($datum->Description);
             $focus->save();
         }
 

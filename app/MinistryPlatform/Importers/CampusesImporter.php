@@ -20,7 +20,7 @@ class CampusesImporter extends ImporterAbstract {
         foreach ($data as $datum) {
             $campus = Campus::findOrNew($datum->Congregation_ID);
             $campus->id = $datum->Congregation_ID;
-            $campus->name = $datum->Congregation_Name;
+            $campus->name = trim($datum->Congregation_Name);
             $campus->save();
         }
 
