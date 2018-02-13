@@ -21,6 +21,7 @@ class Controller extends BaseController {
                 'focus'              => $group->focus ? ['slug' => $group->focus->id, 'title' => $group->focus->name,] : null,
                 'life_stage'         => $group->lifeStage ? ['slug' => $group->lifeStage->id, 'title' => $group->lifeStage->name,] : null,
                 'name'               => $group->name,
+                'subtitle'           => $group->subtitle,
                 'description'        => $group->description,
                 'day_of_week'        => $group->day_of_week,
                 'start_time'         => $group->start_time,

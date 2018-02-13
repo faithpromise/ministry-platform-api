@@ -14,6 +14,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property integer $focus_id
  * @property integer $life_stage_id
  * @property string $name
+ * @property string $subtitle
  * @property string $description
  * @property string $day_of_week
  * @property string $start_time
