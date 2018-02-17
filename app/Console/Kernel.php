@@ -23,11 +23,13 @@ class Kernel extends ConsoleKernel {
      * @return void
      */
     protected function schedule(Schedule $schedule) {
-        $schedule->command('groups:import')->twiceDaily(9, 16)->thenPing(config('ministryplatform.heartbeat_import_groups'));
-        $schedule->command('groups:geocode')
-            ->everyFiveMinutes()
+        $schedule
+            ->command('groups:import')
+            ->twiceDaily(9, 16)
             ->thenPing(config('ministryplatform.heartbeat_import_groups'))
             ->thenPing(config('ministryplatform.cms_import_groups_url'));
+
+        $schedule->command('groups:geocode')->everyFiveMinutes();
     }
 
     /**
