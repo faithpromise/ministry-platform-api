@@ -59,6 +59,13 @@ class GroupsImporter extends ImporterAbstract {
             $group->state = trim($datum->{'State/Region'}) ?: null;
             $group->zip = trim($datum->Postal_Code) ?: null;
             $group->batch_id = $batch_id;
+
+            // Reset lat/lng if address was removed
+            if (!$group->city && !$group->state) {
+                $group->latitude = null;
+                $group->longitude = null;
+            }
+
             $group->save();
         }
 
