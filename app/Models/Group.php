@@ -35,6 +35,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property Campus $campus
  * @property GroupFocus $focus
  * @property LifeStage $lifeStage
+ * @property GroupLeader $leaders
  *
  */
 class Group extends Model {
@@ -51,6 +52,10 @@ class Group extends Model {
 
     public function lifeStage() {
         return $this->belongsTo(LifeStage::class);
+    }
+
+    public function leaders() {
+        return $this->hasMany(GroupLeader::class);
     }
 
 }

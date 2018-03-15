@@ -5,6 +5,7 @@ namespace App\Console\Commands;
 use App\MinistryPlatform\Client;
 use App\MinistryPlatform\Importers\CampusesImporter;
 use App\MinistryPlatform\Importers\GroupFocusesImporter;
+use App\MinistryPlatform\Importers\GroupLeadersImporter;
 use App\MinistryPlatform\Importers\GroupLifeStagesImporter;
 use App\MinistryPlatform\Importers\GroupsImporter;
 use Illuminate\Console\Command;
@@ -49,6 +50,7 @@ class ImportGroups extends Command {
         );
 
         $groups_importer = new GroupsImporter($client);
+        $group_leaders_importer = new GroupLeadersImporter($client);
         $categories_importer = new GroupFocusesImporter($client);
         $life_stages_importer = new GroupLifeStagesImporter($client);
         $campuses_importer = new CampusesImporter($client);
@@ -57,6 +59,7 @@ class ImportGroups extends Command {
         $life_stages_importer->import();
         $categories_importer->import();
         $groups_importer->import();
+        $group_leaders_importer->import();
 
     }
 
