@@ -40,7 +40,13 @@ class ImportGroups extends Command {
      */
     public function handle() {
 
-        $client = new Client(config('ministryplatform.domain'), config('ministryplatform.username'), config('ministryplatform.password'));
+        $client = new Client(
+            config('ministryplatform.domain'),
+            config('ministryplatform.client_id'),
+            config('ministryplatform.client_secret'),
+            config('ministryplatform.username'),
+            config('ministryplatform.password')
+        );
 
         $groups_importer = new GroupsImporter($client);
         $categories_importer = new GroupFocusesImporter($client);
