@@ -7,7 +7,7 @@ use Carbon\Carbon;
 
 class GroupsImporter extends ImporterAbstract {
 
-    private $select_columns = [
+    protected $select_columns = [
         'Groups'                        => ['Group_ID', 'Congregation_ID', 'Group_Focus_ID', 'Life_Stage_ID', 'Group_Name', 'Description', 'Start_Date', 'End_Date', 'Group_Is_Full', 'Available_Online', 'Meeting_Time'],
         'Meeting_Day_ID_Table'          => ['Meeting_Day'],
         'Meeting_Frequency_ID_Table'    => ['Meeting_Frequency'],
@@ -25,7 +25,7 @@ class GroupsImporter extends ImporterAbstract {
 
         $data = $this->client->get('tables/Groups', [
             '$Filter' => "Group_Type_ID=$group_type_id AND Available_Online=1 AND (Group_Is_Full=0 OR Group_Is_Full IS NULL) AND (End_Date > '$today_string' OR End_Date IS NULL)",
-            '$Select' => $this->buildSelectQuery(),
+            '$Select' => $this->buildSelectQuery($this->select_columns),
         ]);
 
         $batch_id = $now->timestamp;
@@ -74,17 +74,6 @@ class GroupsImporter extends ImporterAbstract {
         if (count($data) > 0)
             Group::query()->where('batch_id', '!=', $batch_id)->delete();
 
-    }
-
-    private function buildSelectQuery() {
-
-        $select = [];
-
-        foreach ($this->select_columns as $table => $fields) {
-            $select[] = implode(', ', preg_filter('/^/', $table . '.', $fields));
-        }
-
-        return implode(', ', $select);
     }
 
 }

@@ -14,4 +14,15 @@ abstract class ImporterAbstract {
 
     public abstract function import();
 
+    protected function buildSelectQuery($select_columns) {
+
+        $select = [];
+
+        foreach ($select_columns as $table => $fields) {
+            $select[] = implode(', ', preg_filter('/^/', $table . '.', $fields));
+        }
+
+        return implode(', ', $select);
+    }
+
 }
