@@ -7,7 +7,7 @@ use League\Fractal\TransformerAbstract;
 
 class GroupTransformer extends TransformerAbstract {
 
-    protected $availableIncludes = ['leaders'];
+    protected $availableIncludes = ['campus', 'focus', 'lifeStage', 'leaders'];
 
     /**
      * A Fractal transformer.
@@ -18,9 +18,9 @@ class GroupTransformer extends TransformerAbstract {
     public function transform(Group $group) {
         return [
             'id'                 => $group->id,
-            'campus'             => $group->campus ? ['slug' => $group->campus->remote_slug, 'title' => $group->campus->name,] : null,
-            'focus'              => $group->focus ? ['slug' => $group->focus->id, 'title' => $group->focus->name,] : null,
-            'life_stage'         => $group->lifeStage ? ['slug' => $group->lifeStage->id, 'title' => $group->lifeStage->name,] : null,
+            'campus_slug'        => $group->campus ? $group->campus->remote_slug : null,
+            'focus_slug'         => $group->focus ? $group->focus->id : null,
+            'life_stage_slug'    => $group->lifeStage ? $group->lifeStage->id : null,
             'name'               => $group->name,
             'subtitle'           => $group->subtitle,
             'description'        => $group->description,
@@ -41,6 +41,18 @@ class GroupTransformer extends TransformerAbstract {
 
     public function includeLeaders(Group $group) {
         return $this->collection($group->leaders, new GroupLeaderTransformer);
+    }
+
+    public function includeFocus(Group $group) {
+        return $group->focus ? $this->item($group->focus, new GroupFocusTransformer) : null;
+    }
+
+    public function includeLifeStage(Group $group) {
+        return $group->lifeStage ? $this->item($group->lifeStage, new LifeStageTransformer()) : null;
+    }
+
+    public function includeCampus(Group $group) {
+        return $group->campus ? $this->item($group->campus, new CampusTransformer) : null;
     }
 
 }
