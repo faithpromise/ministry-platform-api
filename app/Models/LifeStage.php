@@ -16,7 +16,7 @@ use Illuminate\Database\Eloquent\Model;
 class LifeStage extends Model {
 
     public function groups() {
-        return $this->hasMany(Group::class);
+        return $this->hasMany(Group::class, 'life_stage_id');
     }
 
 }

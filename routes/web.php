@@ -14,3 +14,5 @@
 use Illuminate\Support\Facades\Route;
 
 Route::get('/groups', 'Controller@groups');
+Route::get('/groups/focuses', 'Controller@groupFocuses');
+Route::get('/groups/life-stages', 'Controller@lifeStages');

@@ -18,7 +18,7 @@ class GroupFocus extends Model {
     protected $table = 'group_focuses';
 
     public function groups() {
-        return $this->hasMany(Group::class);
+        return $this->hasMany(Group::class, 'focus_id');
     }
 
 }
