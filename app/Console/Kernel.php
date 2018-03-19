@@ -26,8 +26,10 @@ class Kernel extends ConsoleKernel {
         $schedule
             ->command('groups:import')
             ->twiceDaily(9, 16)
-            ->thenPing(config('ministryplatform.heartbeat_import_groups'))
-            ->thenPing(config('ministryplatform.cms_import_groups_url'));
+            ->thenPing(config('ministryplatform.cms_import_focuses_url'))
+            ->thenPing(config('ministryplatform.cms_import_life_stages_url'))
+            ->thenPing(config('ministryplatform.cms_import_groups_url'))
+            ->thenPing(config('ministryplatform.heartbeat_import_groups'));
 
         $schedule->command('groups:geocode')->everyFiveMinutes();
     }
