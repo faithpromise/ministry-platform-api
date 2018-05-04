@@ -2,17 +2,30 @@
 
 // Using https://github.com/kamermans/guzzle-oauth2-subscriber
 
-namespace App\MinistryPlatform;
+namespace MinistryPlatform\Http;
 
 use GuzzleHttp\Client as GuzzleClient;
 use GuzzleHttp\HandlerStack;
 use kamermans\OAuth2\GrantType\PasswordCredentials;
 use kamermans\OAuth2\OAuth2Middleware;
 
+use MinistryPlatform\Resources\Contacts;
+use MinistryPlatform\Resources\Group_Inquiries;
+use MinistryPlatform\TokenPersistence;
+
+/**
+ * Class Client
+ * @package MinistryPlatform
+ *
+ *
+ * @method Contacts contacts()
+ * @method Group_Inquiries groupInquiries()
+ *
+ */
 class Client {
 
     private $auth_client;
-    private $client;
+    private $http_client;
     private $discovery_doc;
 
     private $domain;
@@ -28,7 +41,14 @@ class Client {
         $this->username = $username;
         $this->password = $password;
 
-        $this->client = $this->setupClient();
+        $this->http_client = $this->setupClient();
+    }
+
+    public static function getValidSubResources() {
+        return [
+            'contacts'        => Contacts::class,
+            'groupInquiries' => Group_Inquiries::class,
+        ];
     }
 
     private function setupClient() {
@@ -62,24 +82,31 @@ class Client {
 
     }
 
+    /**
+     * @param $endpoint
+     * @param array $parameters
+     * @return HttpResponse
+     */
     public function get($endpoint, $parameters = []) {
-
-        $response = $this->client->get($endpoint, [
-            'query' => $parameters,
-        ]);
-        $content = $response->getBody()->getContents();
-
-        return json_decode($content);
-
+        return (new HttpResponse($this->http_client))->get($endpoint, $parameters);
     }
 
+    /**
+     * @param $endpoint
+     * @param array $parameters
+     * @return HttpResponse
+     */
     public function post($endpoint, $parameters = []) {
-        $response = $this->client->post($endpoint, [
-            'form_params' => $parameters,
-        ]);
-        $content = $response->getBody()->getContents();
+        return (new HttpResponse($this->http_client))->post($endpoint, $parameters);
+    }
 
-        return json_decode($content);
+    /**
+     * @param $endpoint
+     * @param array $parameters
+     * @return HttpResponse
+     */
+    public function postJson($endpoint, $parameters = []) {
+        return (new HttpResponse($this->http_client))->postJson($endpoint, $parameters);
     }
 
     private function discover() {
@@ -96,6 +123,18 @@ class Client {
 
     private function getTokenEndpoint() {
         return $this->discover()->token_endpoint;
+    }
+
+    public function __call($name, $arguments) {
+        if ((array_key_exists($name, $validSubResources = $this::getValidSubResources()))) {
+            $className = $validSubResources[$name];
+            $client = ($this instanceof Client) ? $this : $this->http_client;
+            $class = new $className($client);
+        } else {
+            throw new \Exception("No method called $name available in " . __CLASS__);
+        }
+
+        return $class;
     }
 
 }
