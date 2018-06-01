@@ -8,9 +8,12 @@ use App\Models\LifeStage;
 use App\Transformers\GroupFocusTransformer;
 use App\Transformers\GroupTransformer;
 use App\Transformers\LifeStageTransformer;
+use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
 
 class Controller extends BaseController {
+
+    use ValidatesRequests;
 
     public function groups() {
 

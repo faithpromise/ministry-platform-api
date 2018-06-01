@@ -1,8 +1,8 @@
 <?php
 
-namespace MinistryPlatform\Models;
+namespace App\MinistryPlatform\Models;
 
-use MinistryPlatform\Http\Client;
+use App\MinistryPlatform\Http\Client;
 
 class BaseModel {
 

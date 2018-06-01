@@ -2,7 +2,7 @@
 
 namespace App\Providers;
 
-use MinistryPlatform\Http\Client;
+use App\MinistryPlatform\Http\Client;
 use Illuminate\Support\ServiceProvider;
 
 class MinistryPlatformServiceProvider extends ServiceProvider {

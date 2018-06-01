@@ -1,6 +1,6 @@
 <?php
 
-namespace MinistryPlatform;
+namespace App\MinistryPlatform\Http;
 
 use Illuminate\Support\Facades\Cache;
 use kamermans\OAuth2\Persistence\TokenPersistenceInterface;

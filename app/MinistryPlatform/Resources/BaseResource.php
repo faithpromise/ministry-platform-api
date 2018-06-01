@@ -1,8 +1,8 @@
 <?php
 
-namespace MinistryPlatform\Resources;
+namespace App\MinistryPlatform\Resources;
 
-use MinistryPlatform\Http\Client;
+use App\MinistryPlatform\Http\Client;
 
 class BaseResource {
 

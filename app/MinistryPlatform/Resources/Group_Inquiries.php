@@ -1,6 +1,6 @@
 <?php
 
-namespace MinistryPlatform\Resources;
+namespace App\MinistryPlatform\Resources;
 
 class Group_Inquiries extends BaseResource {
 

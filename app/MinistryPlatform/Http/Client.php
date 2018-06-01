@@ -2,16 +2,16 @@
 
 // Using https://github.com/kamermans/guzzle-oauth2-subscriber
 
-namespace MinistryPlatform\Http;
+namespace App\MinistryPlatform\Http;
 
 use GuzzleHttp\Client as GuzzleClient;
 use GuzzleHttp\HandlerStack;
 use kamermans\OAuth2\GrantType\PasswordCredentials;
 use kamermans\OAuth2\OAuth2Middleware;
 
-use MinistryPlatform\Resources\Contacts;
-use MinistryPlatform\Resources\Group_Inquiries;
-use MinistryPlatform\TokenPersistence;
+use App\MinistryPlatform\Resources\Contacts;
+use App\MinistryPlatform\Resources\Group_Inquiries;
+use kamermans\OAuth2\Persistence\NullTokenPersistence;
 
 /**
  * Class Client
@@ -67,7 +67,7 @@ class Client {
         ]);
 
         $oauth = new OAuth2Middleware($grant_type);
-        $oauth->setTokenPersistence(new TokenPersistence);
+        $oauth->setTokenPersistence(new NullTokenPersistence);
 
         $stack = HandlerStack::create();
         $stack->push($oauth);

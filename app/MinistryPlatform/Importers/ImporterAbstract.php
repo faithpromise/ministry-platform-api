@@ -2,7 +2,7 @@
 
 namespace App\MinistryPlatform\Importers;
 
-use App\MinistryPlatform\Client;
+use App\MinistryPlatform\Http\Client;
 
 abstract class ImporterAbstract {
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace MinistryPlatform\Http;
+namespace App\MinistryPlatform\Http;
 
 use GuzzleHttp\Client as GuzzleClient;
 

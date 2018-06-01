@@ -1,6 +1,6 @@
 <?php
 
-namespace MinistryPlatform\Models;
+namespace App\MinistryPlatform\Models;
 
 /**
  * Class GroupInquiry

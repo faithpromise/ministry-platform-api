@@ -1,8 +1,8 @@
 <?php
 
-namespace MinistryPlatform\Resources;
+namespace App\MinistryPlatform\Resources;
 
-use MinistryPlatform\Models\Contact;
+use App\MinistryPlatform\Models\Contact;
 
 class Contacts extends BaseResource {
 
