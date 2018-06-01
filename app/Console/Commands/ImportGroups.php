@@ -2,7 +2,7 @@
 
 namespace App\Console\Commands;
 
-use App\MinistryPlatform\Client;
+use App\MinistryPlatform\Http\Client;
 use App\MinistryPlatform\Importers\CampusesImporter;
 use App\MinistryPlatform\Importers\GroupFocusesImporter;
 use App\MinistryPlatform\Importers\GroupLeadersImporter;
