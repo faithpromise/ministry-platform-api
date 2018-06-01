@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\MinistryPlatform\Http\Client;
+use App\MinistryPlatform\Http\TokenPersistence;
 use Illuminate\Support\ServiceProvider;
 
 class MinistryPlatformServiceProvider extends ServiceProvider {
@@ -27,7 +28,8 @@ class MinistryPlatformServiceProvider extends ServiceProvider {
                 config('ministryplatform.client_id'),
                 config('ministryplatform.client_secret'),
                 config('ministryplatform.username'),
-                config('ministryplatform.password')
+                config('ministryplatform.password'),
+                new TokenPersistence
             );
         });
     }

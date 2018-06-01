@@ -26,6 +26,7 @@ class Contacts extends BaseResource {
      * @param $email
      * @param null $phone
      * @return Contact|null
+     * @throws \Exception
      */
     public function match($first_name, $last_name, $email, $phone = null) {
 
@@ -49,6 +50,7 @@ class Contacts extends BaseResource {
      * @param string $Email_Address
      * @param string|null $Mobile_Phone
      * @return Contact|null
+     * @throws \Exception
      */
     public function firstOrCreate($First_Name, $Last_Name, $Email_Address, $Mobile_Phone = null) {
 

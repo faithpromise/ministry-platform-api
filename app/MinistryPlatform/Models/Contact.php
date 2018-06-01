@@ -56,6 +56,10 @@ namespace App\MinistryPlatform\Models;
  */
 class Contact extends BaseModel {
 
+    /**
+     * @return $this
+     * @throws \Exception
+     */
     public function save() {
 
         // Make sure Company is set to 0
@@ -64,7 +68,9 @@ class Contact extends BaseModel {
         // Make sure Display Name is set
         $this->Display_Name = $this->Display_Name ?: ($this->Last_Name . ', ' . ($this->Nickname ?: $this->First_Name));
 
-        return parent::save();
+        parent::save();
+
+        return $this;
     }
 
 }

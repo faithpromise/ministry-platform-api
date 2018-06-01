@@ -3,6 +3,7 @@
 namespace App\MinistryPlatform\Models;
 
 use App\MinistryPlatform\Http\Client;
+use App\MinistryPlatform\Http\HttpResponse;
 
 class BaseModel {
 
@@ -19,10 +20,15 @@ class BaseModel {
         return $this;
     }
 
+    /**
+     * @return $this
+     * @throws \Exception
+     */
     public function save() {
         $pk = $this->getPrimaryKey();
         $endpoint = $this->getBaseEndpoint() . ($pk ? '/' . $pk : '');
 
+        /** @var HttpResponse $result */
         $result = $this->client->postJson($endpoint, [$this->attributes]);
 
         $this->fill($result->getSingle());
@@ -48,6 +54,8 @@ class BaseModel {
             return $this->{$method}($value);
 
         $this->attributes[$name] = $value;
+
+        return $this;
     }
 
     public function __get($name) {

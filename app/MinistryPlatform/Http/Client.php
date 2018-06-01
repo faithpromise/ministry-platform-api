@@ -9,9 +9,10 @@ use GuzzleHttp\HandlerStack;
 use kamermans\OAuth2\GrantType\PasswordCredentials;
 use kamermans\OAuth2\OAuth2Middleware;
 
+use kamermans\OAuth2\Persistence\NullTokenPersistence;
+use kamermans\OAuth2\Persistence\TokenPersistenceInterface;
 use App\MinistryPlatform\Resources\Contacts;
 use App\MinistryPlatform\Resources\Group_Inquiries;
-use kamermans\OAuth2\Persistence\NullTokenPersistence;
 
 /**
  * Class Client
@@ -34,24 +35,25 @@ class Client {
     private $username;
     private $password;
 
-    public function __construct($domain, $client_id, $client_secret, $username = null, $password = null) {
+    public function __construct($domain, $client_id, $client_secret, $username = null, $password = null, $persistence = null) {
+
         $this->domain = $domain;
         $this->client_id = $client_id;
         $this->client_secret = $client_secret;
         $this->username = $username;
         $this->password = $password;
 
-        $this->http_client = $this->setupClient();
+        $this->http_client = $this->setupClient($persistence ?: new NullTokenPersistence);
     }
 
     public static function getValidSubResources() {
         return [
-            'contacts'        => Contacts::class,
+            'contacts'       => Contacts::class,
             'groupInquiries' => Group_Inquiries::class,
         ];
     }
 
-    private function setupClient() {
+    private function setupClient(TokenPersistenceInterface $persistence) {
 
         $this->auth_client = new GuzzleClient([
             'base_uri' => $this->getTokenEndpoint(),
@@ -67,7 +69,7 @@ class Client {
         ]);
 
         $oauth = new OAuth2Middleware($grant_type);
-        $oauth->setTokenPersistence(new NullTokenPersistence);
+        $oauth->setTokenPersistence($persistence);
 
         $stack = HandlerStack::create();
         $stack->push($oauth);
@@ -125,6 +127,12 @@ class Client {
         return $this->discover()->token_endpoint;
     }
 
+    /**
+     * @param $name
+     * @param $arguments
+     * @return mixed
+     * @throws \Exception
+     */
     public function __call($name, $arguments) {
         if ((array_key_exists($name, $validSubResources = $this::getValidSubResources()))) {
             $className = $validSubResources[$name];
