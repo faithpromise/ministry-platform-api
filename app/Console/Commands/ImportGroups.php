@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use App\MinistryPlatform\Http\Client;
+use App\MinistryPlatform\Http\TokenPersistence;
 use App\MinistryPlatform\Importers\CampusesImporter;
 use App\MinistryPlatform\Importers\GroupFocusesImporter;
 use App\MinistryPlatform\Importers\GroupLeadersImporter;
@@ -46,7 +47,8 @@ class ImportGroups extends Command {
             config('ministryplatform.client_id'),
             config('ministryplatform.client_secret'),
             config('ministryplatform.username'),
-            config('ministryplatform.password')
+            config('ministryplatform.password'),
+            new TokenPersistence
         );
 
         $groups_importer = new GroupsImporter($client);
