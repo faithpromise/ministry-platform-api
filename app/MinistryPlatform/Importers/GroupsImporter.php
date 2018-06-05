@@ -23,11 +23,12 @@ class GroupsImporter extends ImporterAbstract {
 
         // Build select columns
 
-        $data = $this->client->get('tables/Groups', [
+        $result = $this->client->get('tables/Groups', [
             '$Filter' => "Group_Type_ID=$group_type_id AND Available_Online=1 AND (Group_Is_Full=0 OR Group_Is_Full IS NULL) AND (End_Date > '$today_string' OR End_Date IS NULL)",
             '$Select' => $this->buildSelectQuery($this->select_columns),
         ]);
 
+        $data = $result->getData();
         $batch_id = $now->timestamp;
 
         foreach ($data as $datum) {

@@ -23,13 +23,13 @@ class GroupLeadersImporter extends ImporterAbstract {
 
         $group_ids = implode(',', $group_ids);
 
-        $data = $this->client->post('tables/Group_Participants/get', [
+        $result = $this->client->post('tables/Group_Participants/get', [
             'Select' => $this->buildSelectQuery($this->select_columns),
             'Filter' => "Group_ID IN (" . $group_ids . ") AND Group_Role_ID=$leader_role_id",
             'Top'    => 5000,
         ]);
 
-        foreach ($data as $datum) {
+        foreach ($result->getData() as $datum) {
             $leader = GroupLeader::findOrNew($datum->Contact_ID);
             $leader->id = $datum->Contact_ID;
             $leader->group_id = $datum->Group_ID;

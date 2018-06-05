@@ -8,9 +8,9 @@ class GroupLifeStagesImporter extends ImporterAbstract {
 
     public function import() {
 
-        $data = $this->client->get('tables/Life_Stages');
+        $result = $this->client->get('tables/Life_Stages');
 
-        foreach ($data as $datum) {
+        foreach ($result->getData() as $datum) {
             $life_stage = LifeStage::findOrNew($datum->Life_Stage_ID);
             $life_stage->id = $datum->Life_Stage_ID;
             $life_stage->name = trim($datum->Life_Stage);
