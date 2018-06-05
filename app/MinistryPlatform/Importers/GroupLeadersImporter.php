@@ -17,6 +17,10 @@ class GroupLeadersImporter extends ImporterAbstract {
         $leader_role_id = config('ministryplatform.group_leader_role_id');
 
         $group_ids = Group::query()->pluck('id')->toArray();
+
+        if (!count($group_ids))
+            return;
+
         $group_ids = implode(',', $group_ids);
 
         $data = $this->client->post('tables/Group_Participants/get', [
