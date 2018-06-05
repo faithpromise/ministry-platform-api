@@ -6,7 +6,7 @@ namespace App\MinistryPlatform\Http;
 
 use GuzzleHttp\Client as GuzzleClient;
 use GuzzleHttp\HandlerStack;
-use kamermans\OAuth2\GrantType\PasswordCredentials;
+use kamermans\OAuth2\GrantType\ClientCredentials;
 use kamermans\OAuth2\OAuth2Middleware;
 
 use kamermans\OAuth2\Persistence\NullTokenPersistence;
@@ -59,13 +59,13 @@ class Client {
             'base_uri' => $this->getTokenEndpoint(),
         ]);
 
-        $grant_type = new PasswordCredentials($this->auth_client, [
+        $grant_type = new ClientCredentials($this->auth_client, [
             'client_id'     => $this->client_id,
             'client_secret' => $this->client_secret,
-            'username'      => $this->username,
-            'password'      => $this->password,
+//            'username'      => $this->username,
+//            'password'      => $this->password,
             'scope'         => 'http://www.thinkministry.com/dataplatform/scopes/all',
-            'grant_type'    => 'password',
+            'grant_type'    => 'client_credentials',
         ]);
 
         $oauth = new OAuth2Middleware($grant_type);
