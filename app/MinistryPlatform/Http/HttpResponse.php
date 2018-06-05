@@ -32,7 +32,7 @@ class HttpResponse {
     }
 
     public function getData() {
-        return json_decode($this->response->getBody()->getContents(), true);
+        return json_decode($this->response->getBody()->getContents());
     }
 
     /**
