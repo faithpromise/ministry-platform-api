@@ -161,6 +161,7 @@ return [
         App\Providers\RouteServiceProvider::class,
 
         \App\Providers\MinistryPlatformServiceProvider::class,
+        \App\Providers\ActiveCampaignProvider::class,
 
     ],
 
